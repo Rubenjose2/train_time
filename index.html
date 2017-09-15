@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://www.gstatic.com/firebasejs/4.3.0/firebase.js"></script>
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <title>Train Time Scheduler</title>
+</head>
+
+<body>
+
+    <div class="jumbotron">
+        <div class="container text-center">
+            <h1>Any Time is train time</h1>
+            <p>Cho cho. Che Che</p>
+        </div>
+    </div>
+    <!-- Main Container Grid and Form -->
+    <div class="container">
+        <!-- Here is where we put the grid -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Current Time Schedule</h3>
+            </div>
+            <!-- Main Table Display Results -->
+            <div class="panel-body">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Train Name</th>
+                            <th>Destination</th>
+                            <th>Frecuency (min)</th>
+                            <th>Next Arraival</th>
+                            <th>Minutes Away</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- Form Section  -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Add a Train</h3>
+            </div>
+            <div class="panel-body">
+
+                <form>
+                    <div class="form-group">
+                        <label for="">Train Name</label>
+                        <input type="text" class="form-control" id="train_name">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Destination</label>
+                        <input type="text" class="form-control" id="destination">
+                    </div>
+                    <div class="form-group">
+                        <label for="">First Train Time (HH:mm - Military Time)</label>
+                        <input type="text" class="form-control" id="time">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Frecuency (min)</label>
+                        <input type="text" class="form-control" id="duration">
+                    </div>
+
+                    <button id="sent" class="btn btn-primary">Submit</button>
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+    <script src="assets/javascript/logic.js"></script>
+</body>
+
+</html>
