@@ -8,6 +8,7 @@
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://www.gstatic.com/firebasejs/4.3.0/firebase.js"></script>
+    <script src="https://use.fontawesome.com/69f5afdba3.js"></script>
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
     <title>Train Time Scheduler</title>
 </head>
@@ -29,9 +30,10 @@
             </div>
             <!-- Main Table Display Results -->
             <div class="panel-body">
-                <table class="table table-hover">
+                <table class="table table-hover" id="train_details">
                     <thead>
                         <tr>
+                            <th></th>
                             <th>Train Name</th>
                             <th>Destination</th>
                             <th>Frecuency (min)</th>
@@ -70,7 +72,7 @@
                         <input type="text" class="form-control" id="duration">
                     </div>
 
-                    <button id="sent" class="btn btn-primary">Submit</button>
+                    <button id="sent" class="btn btn-primary" data-status="mod_off">Submit</button>
                 </form>
 
             </div>

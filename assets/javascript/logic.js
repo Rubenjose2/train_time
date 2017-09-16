@@ -18,6 +18,7 @@
   var times2 = "";
   var min_away = 0;
   var dt = new Date();
+  var key = "";
 
 
   // function to add values to database 'train child'
@@ -30,6 +31,16 @@
       });
   }
   // /////////////////////////////////////////////////////////
+  // Function to update values on database 'train clild'
+  function updateUserData(name, destination, time, duration, key) {
+      database.ref('train/' + key).set({
+          train_name: name,
+          destination: destination,
+          time: time,
+          duration: duration,
+      });
+  }
+  //////////////////////////////////////////////////////////////
 
   //   function to return the next train in hours and minutes lefts////////////
   function nexttrain(starttime, frecuency) {
@@ -37,9 +48,7 @@
       // console.log("Present Time: " + dt);
       /////////////////////////////////////////////////////////////
       var star = starttime;
-      console.log(star);
       var x = parseInt(frecuency); //minutes interval
-      console.log(x);
       var tt = parseInt(star.slice(0, 2)) * 60; // take the hour portion and make it integer
       tt = tt + parseInt(star.slice(-2)); //take the minutes portion and add it
       var ap = [' AM', ' PM']; // AM-PM
@@ -47,7 +56,6 @@
       // loop and find the next closer time//
       for (var i = 0; tt < 24 * 60;) {
           if (tt > curtime) {
-              console.log(tt);
               var hh = Math.floor(tt / 60); // getting hours of day in 0-24 format
               var mm = (tt % 60); // getting minutes of the hour in 0-55 format
               times2 = ("0" + (hh % 12)).slice(-2) + ':' + ("0" + mm).slice(-2) + ap[Math.floor(hh / 12)]; // pushing data in array in [00:00 - 12:00 AM/PM format]
@@ -56,7 +64,6 @@
           }
           tt = tt + x;
       }
-      console.log(min_away);
       return [times2, min_away];
   }
   // Retrive data from the Database for print out on the table
@@ -66,31 +73,51 @@
           //   Creating of the loop to evaluate the opject snapshot
           snapshot.forEach(function(child) {
               var childkey = child.key;
+              icon = '<td><i class="fa fa-train" aria-hidden="true" id="train_detail"></i></td>';
               var child_train = "<td>" + child.val().train_name + "</td>";
               var child_destination = "<td>" + child.val().destination + "</td>";
               var child_time = "<td>" + child.val().duration + "</td>";
               var caltime = child.val().time; // pulling from database the starting time
-              var next_hour = nexttrain(caltime, child.val().duration);
-              next_hour = "<td>" + next_hour[0] + "</td>";
-              var min_left = "<td>" + next_hour[1] + "</td>";
-              console.log(next_hour[1]);
-              var final = child_train + child_destination + child_time + next_hour + min_left; //Combining all Cells
+              var next_hour = nexttrain(caltime, child.val().duration); //would add the next train using the nextrain fuction
+              next_hour2 = "<td>" + next_hour[0] + "</td>"; //add the firts return "time "
+              var min_left = "<td>" + next_hour[1] + "</td>"; // add the second return "minutes left"
+              var final = icon + child_train + child_destination + child_time + next_hour2 + min_left; //Combining all Cells
               var table_print = $("<tr>"); //buiding the response insede "tbody" tag
               table_print.append(final);
+              table_print.attr("data-key", childkey);
+              table_print.addClass("train-detail");
               $("tbody").append(table_print);
           })
       })
       //   ************************END OF WRITING INTO TABLE FUNCION**************************
+      // Function to update the train details
+  $("#train_details").on("click", "tr", function(event) { //On table important to pull firts the table id, and them the tag
+      key = ($(this).attr("data-key")); //collect the key from the DOM attibute data-key
+      database.ref('train/' + key).on("value", function(snapshot) { //start pulling the information
+          $("#train_name").val(snapshot.val().train_name);
+          $("#destination").val(snapshot.val().destination);
+          $("#time").val(snapshot.val().time);
+          $("#duration").val(snapshot.val().duration);
+          $("#sent").text("Update");
+          $("#sent").attr("data-status", "mod_on");
+      })
+  })
 
 
   $("#sent").on("click", function(event) {
       event.preventDefault();
+      var mod_status = $(this).attr("data-status")
+      console.log(mod_status);
       // Colecting data from the Form
       name = $("#train_name").val().trim();
       destination = $("#destination").val().trim();
       time = $("#time").val().trim();
       duration = $("#duration").val().trim();
-      writeUserData(name, destination, time, duration); //this would send into the database
+      if (mod_status == "mod_off") {
+          writeUserData(name, destination, time, duration); //this would send into the database
+      } else {
+          updateUserData(name, destination, time, duration, key);
+      }
       //   Empty the form
       $("#train_name").val('');
       $("#destination").val('');
