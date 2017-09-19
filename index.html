@@ -6,9 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://bootswatch.com/cyborg/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> -->
     <script src="https://www.gstatic.com/firebasejs/4.3.0/firebase.js"></script>
     <script src="https://use.fontawesome.com/69f5afdba3.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Zilla+Slab+Highlight" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
     <title>Train Time Scheduler</title>
 </head>
@@ -18,7 +20,10 @@
     <div class="jumbotron">
         <div class="container text-center">
             <h1>Any Time is train time</h1>
-            <p>Cho cho. Che Che</p>
+            <h6><i class="fa fa-train" aria-hidden="true" id="train_detail"></i> 30 or more minutes away
+                <i class="fa fa-train yellow" aria-hidden="true" id="train_detail"></i> 5 or more minutes away
+                <i class="fa fa-train red" aria-hidden="true" id="train_detail"></i> Run ! You're going to miss it!
+            </h6>
         </div>
     </div>
     <!-- Main Container Grid and Form -->
@@ -33,7 +38,7 @@
                 <table class="table table-hover" id="train_details">
                     <thead>
                         <tr>
-                            <th></th>
+                            <th>Status</th>
                             <th>Train Name</th>
                             <th>Destination</th>
                             <th>Frecuency (min)</th>
@@ -41,7 +46,7 @@
                             <th>Minutes Away</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="train_font">
 
                     </tbody>
                 </table>

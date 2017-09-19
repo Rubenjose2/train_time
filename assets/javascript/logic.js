@@ -84,7 +84,7 @@
               //   Creating of the loop to evaluate the opject snapshot
               snapshot.forEach(function(child) {
                   var childkey = child.key;
-                  icon = '<td><i class="fa fa-train" aria-hidden="true" id="train_detail"></i></td>';
+
                   var child_train = "<td>" + child.val().train_name + "</td>";
                   var child_destination = "<td>" + child.val().destination + "</td>";
                   var child_time = "<td>" + child.val().duration + "</td>";
@@ -92,6 +92,13 @@
                   var next_hour = nexttrain(caltime, child.val().duration); //would add the next train using the nextrain fuction
                   next_hour2 = "<td>" + next_hour[0] + "</td>"; //add the firts return "time "
                   var min_left = "<td>" + next_hour[1] + "</td>"; // add the second return "minutes left"
+                  if (next_hour[1] > 30) {
+                      icon = '<td><i class="fa fa-train" aria-hidden="true" id="train_detail"></i></td>';
+                  } else if (next_hour[1] > 5) {
+                      icon = '<td><i class="fa fa-train yellow" aria-hidden="true" id="train_detail"></i></td>';
+                  } else {
+                      icon = '<td><i class="fa fa-train red" aria-hidden="true" id="train_detail"></i></td>';
+                  }
                   var final = icon + child_train + child_destination + child_time + next_hour2 + min_left; //Combining all Cells
                   var table_print = $("<tr>"); //buiding the response insede "tbody" tag
                   table_print.append(final);

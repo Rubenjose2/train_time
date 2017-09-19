@@ -6,3 +6,19 @@
     background-color: #337ab7;
     color: white
 }
+
+.fa {
+    color: #196422;
+}
+
+.jumbotron h1 {
+    font-family: monospace;
+}
+
+.yellow {
+    color: yellow;
+}
+
+.red {
+    color: red;
+}
